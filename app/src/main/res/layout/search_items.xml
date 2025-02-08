@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="20dp"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        android:orientation="vertical">
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView android:id="@+id/textViewJalstatic"
+            android:text="Jal ID:"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"/>
+
+        <TextView android:id="@+id/textViewJal"
+            android:text="Jal ID"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:textSize="18sp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+        <TextView android:id="@+id/textViewownerstatic"
+            android:text="Name:"
+            android:layout_weight="1"
+            android:layout_below="@id/textViewJalstatic"
+            android:layout_width="0dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView android:id="@+id/textViewowner"
+            android:text="Owner"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:layout_weight="1"
+            android:layout_below="@id/textViewJal"
+            android:layout_width="0dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <TextView android:id="@+id/textViewownerhousenamestatic"
+            android:text="House No:"
+            android:layout_weight="1"
+            android:layout_below="@id/textViewownerstatic"
+            android:layout_width="0dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView android:id="@+id/textViewownerhousename"
+            android:text="Owner"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:layout_weight="1"
+            android:layout_below="@id/textViewowner"
+            android:layout_width="0dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/textViewownermobilestatic"
+                android:text="Mobile No:"
+                android:layout_weight="1"
+                android:layout_below="@id/textViewownerstatic"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView android:id="@+id/textViewownermobile"
+                android:text="Owner"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:layout_weight="1"
+                android:layout_below="@id/textViewowner"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/textViewownerbilldatestatic"
+                android:text="Bill Date:"
+                android:layout_weight="1"
+                android:layout_below="@id/textViewownerstatic"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView android:id="@+id/textViewownerbilldate"
+                android:text="Owner"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:layout_weight="1"
+                android:layout_below="@id/textViewowner"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/isEligibleForDiscountstatic"
+                android:text="Eligible For Discount.:"
+                android:layout_weight="1"
+                android:layout_below="@id/textViewownerstatic"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView android:id="@+id/isEligibleForDiscount"
+                android:text="Owner"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:layout_weight="1"
+                android:layout_below="@id/textViewowner"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/discount_amountstatic"
+                android:text="Discounted Amount:"
+                android:layout_weight="1"
+                android:layout_below="@id/textViewownerstatic"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView android:id="@+id/discount_amount"
+                android:text="Owner"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:layout_weight="1"
+                android:layout_below="@id/textViewowner"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/CurrentSurchargestatic"
+                android:text="Current Surcharge:"
+                android:layout_weight="1"
+                android:layout_below="@id/textViewownerstatic"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView android:id="@+id/CurrentSurcharge"
+                android:text="Owner"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:layout_weight="1"
+                android:layout_below="@id/textViewowner"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/AmountRecivedCurrentFYstatic"
+                android:text="Amount Recived\nCurrent FY:"
+                android:layout_weight="1"
+                android:layout_below="@id/textViewownerstatic"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView android:id="@+id/AmountRecivedCurrentFY"
+                android:text="Owner"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:layout_weight="1"
+                android:layout_below="@id/textViewowner"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/TotalTaxstatic"
+                android:text="TotalTax:"
+                android:layout_weight="1"
+                android:layout_below="@id/textViewownerstatic"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView android:id="@+id/TotalTax"
+                android:text="Owner"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:layout_weight="1"
+                android:layout_below="@id/textViewowner"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>
+
+</LinearLayout>
