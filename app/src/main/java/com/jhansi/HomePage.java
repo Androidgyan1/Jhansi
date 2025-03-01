@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,11 +32,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class HomePage extends AppCompatActivity {
+    ProgressBar progressBar;
+
     private ArrayList<SearchModel> dataList;
     private TextView textViewMobileZone;
 
@@ -61,6 +68,8 @@ public class HomePage extends AppCompatActivity {
         // Initialize TextView
         textViewMobileZone = findViewById(R.id.textViewMobileZone);
 
+        progressBar = findViewById(R.id.progress);
+
         // Retrieve Token & Mobile Number from Intent
         token = getIntent().getStringExtra("TOKEN");
         mobileNumberZone = getIntent().getStringExtra("ZONE");
@@ -84,7 +93,7 @@ public class HomePage extends AppCompatActivity {
 
     private void fetchUserData(String mobileNumber) {
         RequestQueue queue = Volley.newRequestQueue(this);
-
+        progressBar.setVisibility(View.VISIBLE);
         JSONObject requestBody = new JSONObject();
         try {
             requestBody.put("Token", token);
@@ -106,6 +115,18 @@ public class HomePage extends AppCompatActivity {
                                 String housename = obj.getString("house_no");
                                 String housemobile = obj.getString("mobile_no");
                                 String Billdate = obj.getString("bill_date");
+                                // Convert bill_date to dd/MM/yyyy format
+                                SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US); // Adjust format based on server response
+                                SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+                                try {
+                                    Date date = inputFormat.parse(Billdate);
+                                    if (date != null) {
+                                        Billdate = outputFormat.format(date);
+                                    }
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
                                 String isEligibleForDiscount = obj.getString("isEligibleForDiscount");
                                 String discount_amount = obj.getString("discount_amount");
                                 String CurrentSurcharge = obj.getString("CurrentSurcharge");
@@ -121,10 +142,12 @@ public class HomePage extends AppCompatActivity {
                             Intent intent = new Intent(HomePage.this, SearchDetails.class);
                             intent.putExtra("DATA_LIST", dataList);
                             startActivity(intent);
+                            progressBar.setVisibility(View.GONE);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(HomePage.this, "JSON Parsing Error", Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
                         }
                     }
                 },
@@ -133,6 +156,7 @@ public class HomePage extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley Error", error.getLocalizedMessage());
                         Toast.makeText(HomePage.this, "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
                     }
                 }) {
 

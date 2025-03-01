@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="payment_methods">
+        <item>Select Payment Option</item>
+        <item>cash</item>
+        <item>Cheque</item>
+        <item>Online Payment</item>
+    </string-array>
+</resources>

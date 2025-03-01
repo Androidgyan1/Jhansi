@@ -6,6 +6,8 @@ public class SearchModel implements Serializable {
     private String name, email,textViewownerhousename,textViewownermobile,textViewownerbilldate,isEligibleForDiscount,
             discount_amount,CurrentSurcharge,AmountRecivedCurrentFY,TotalTax;
 
+    Boolean isFullPaymentSelected,isPartiallPayment;
+
     public SearchModel(String name, String email,String textViewownerhousename,String textViewownermobile,String textViewownerbilldate,
                        String isEligibleForDiscount,String discount_amount,String CurrentSurcharge,String AmountRecivedCurrentFY,
                        String TotalTax) {
@@ -19,6 +21,8 @@ public class SearchModel implements Serializable {
         this.CurrentSurcharge = CurrentSurcharge;
         this.AmountRecivedCurrentFY = AmountRecivedCurrentFY;
         this.TotalTax = TotalTax;
+        this.isFullPaymentSelected = false;
+        this.isPartiallPayment = false;// Default to full payment
     }
 
     public String getJLalKal() {
@@ -60,6 +64,23 @@ public class SearchModel implements Serializable {
 
     public String TaTotalTax() {
         return TotalTax;
+    }
+
+    public boolean isFullPaymentSelected() {
+        return isFullPaymentSelected;
+    }
+
+    public void setFullPaymentSelected(boolean isFullPayment) {
+        this.isFullPaymentSelected = isFullPayment;
+    }
+
+
+    public boolean isPartiallPayment() {
+        return isPartiallPayment;
+    }
+
+    public void setPartialPaymentSlected(boolean isPartiallPayment) {
+        this.isPartiallPayment = isPartiallPayment;
     }
 
 }

@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:background="@drawable/gradient_background"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PaymentDropdownactivty">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:elevation="10dp"
+        android:id="@+id/toobarDetails"
+        android:background="@drawable/gradient_background"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:src="@drawable/baseline_arrow_back_24"
+                android:id="@+id/btnBack"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                />
+
+            <TextView
+                android:layout_marginLeft="12dp"
+                android:layout_toRightOf="@id/btnBack"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment Page"/>
+
+
+
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_below="@id/toobarDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+    <androidx.cardview.widget.CardView
+        android:layout_below="@+id/toobarDetails"
+        android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:orientation="vertical">
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView android:id="@+id/textViewJalstatic"
+                    android:text="Client ID:"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView android:id="@+id/paymentpagecurrenttax"
+                    android:text="Client ID"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView android:id="@+id/paymenttypestatic"
+                    android:text="Payment Type:"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView android:id="@+id/paymenttype"
+                    android:text="Client ID"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView android:id="@+id/textViewownerstatic"
+                    android:text="current_water_tax:"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewJalstatic"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView android:id="@+id/current_water_taxpaymentactivity"
+                    android:text="Owner"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewJal"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView android:id="@+id/textViewownerhousenamestatic"
+                    android:text="water_arrer:"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewownerstatic"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView android:id="@+id/water_arrerpaymentactivity"
+                    android:text="Owner"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewowner"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView android:id="@+id/textViewownermobilestatic"
+                    android:text="current_server_tax:"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewownerstatic"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView android:id="@+id/current_server_taxpaymentactivity"
+                    android:text="Owner"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewowner"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView android:id="@+id/textViewownerbilldatestatic"
+                    android:text="sewer_arrear:"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewownerstatic"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView android:id="@+id/sewer_arrearpaymentactivity"
+                    android:text="Owner"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewowner"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView android:id="@+id/isEligibleForDiscountstatic"
+                    android:text="Arrer_surcharge:"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewownerstatic"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView android:id="@+id/Arrer_surchargepaymentactivity"
+                    android:text="Owner"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewowner"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView android:id="@+id/discount_amountstatic"
+                    android:text="Bill_date:"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewownerstatic"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView android:id="@+id/bill_datepaymentactivity"
+                    android:text="Owner"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewowner"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView android:id="@+id/CurrentSurchargestatic"
+                    android:text="Discount_amount:"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewownerstatic"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView android:id="@+id/discount_amountpaymentactivity"
+                    android:text="Owner"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewowner"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView android:id="@+id/AmountRecivedCurrentFYstatic"
+                    android:text="Current_surcharge:"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewownerstatic"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView android:id="@+id/current_surchargepaymentactivity"
+                    android:text="Owner"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewowner"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView android:id="@+id/TotalTaxstatic"
+                    android:text="Total_Payable\nAmount:"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewownerstatic"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView android:id="@+id/total_payable_amountpaymentactivity"
+                    android:text="Owner"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewowner"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView android:id="@+id/TotalTaxstaticpayment"
+                    android:text="AmountToPay:"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewownerstatic"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView android:id="@+id/AmountToPaypaymentactivity"
+                    android:text="Owner"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewowner"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView android:id="@+id/TotalTaxstaticots"
+                    android:text="OTS Discount Amt:"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewownerstatic"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView android:id="@+id/OTSDiscountamtpaymentactivity"
+                    android:text="Owner"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewowner"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView android:id="@+id/TotalTaxstaticadvance"
+                    android:text="Advance Amount:"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewownerstatic"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView android:id="@+id/AdvanceAmtpaymentactivity"
+                    android:text="Owner"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"
+                    android:layout_weight="1"
+                    android:layout_below="@id/textViewowner"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+
+
+
+
+
+            <!-- Payment Options -->
+
+            <!-- Payment Method Spinner -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Payment Method:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp" />
+
+
+
+                <Spinner
+
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/spinnerPaymentMethod"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="10dp"
+                    android:entries="@array/payment_methods"
+                    android:background="#ecf0f1" />
+
+            <EditText
+                android:padding="12sp"
+                android:id="@+id/editTextChequeNumber"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Enter Cheque Number"
+                android:inputType="number"
+                android:maxLength="6"
+                android:visibility="gone"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext_bacground"/>
+
+            <Spinner
+
+                android:layout_marginTop="10dp"
+                android:id="@+id/spinnerBankName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:entries="@array/payment_methods"
+                android:background="#A2B6B9" />
+
+            <EditText
+                android:padding="12dp"
+                android:id="@+id/editTextBankNameBranch"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Enter Bank Branch"
+                android:visibility="gone"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext_bacground"/>
+
+
+
+
+            <EditText
+                android:padding="12dp"
+                android:focusable="false"
+                android:clickable="true"
+                android:id="@+id/editTextChequeDate"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Enter Cheque Date"
+                android:visibility="gone"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext_bacground"
+                android:inputType="date"/>
+
+
+
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_marginBottom="10dp"
+        android:onClick="payout"
+        android:layout_margin="12dp"
+        android:id="@+id/buttonProceed"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:textColor="@android:color/white"
+        android:background="@drawable/edit_text_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Proceed"
+        android:layout_marginTop="10dp" />
+
+</RelativeLayout>

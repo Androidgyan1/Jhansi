@@ -3,7 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,6 +19,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Jhansi"
         tools:targetApi="31">
+        <activity
+            android:name=".PrintReceptScreen"
+            android:exported="false" />
+        <activity
+            android:name=".RecieptPage"
+            android:exported="false" />
+        <activity
+            android:name=".PaymentDropdownactivty"
+            android:exported="false" />
+        <activity
+            android:name=".DetailsShowActivity"
+            android:exported="false" />
         <activity
             android:name=".SearchDetails"
             android:exported="false" />
@@ -29,6 +46,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.jhansi.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>
