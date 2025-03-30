@@ -45,7 +45,10 @@
     </androidx.appcompat.widget.Toolbar>
 
 
-
+<androidx.core.widget.NestedScrollView
+    android:layout_below="@+id/toobarDetails"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <androidx.cardview.widget.CardView
         android:layout_below="@+id/toobarDetails"
         android:layout_width="match_parent"
@@ -287,6 +290,7 @@
 
                 <TextView android:id="@+id/AmountRecivedCurrentFYDetails"
                     android:text="Owner"
+                    android:layout_gravity="center"
                     android:textStyle="bold"
                     android:fontFamily="sans-serif"
                     android:layout_weight="1"
@@ -304,7 +308,7 @@
                 android:orientation="horizontal">
 
                 <TextView android:id="@+id/TotalTaxstatic"
-                    android:text="TotalTax:"
+                    android:text="Total Payble\nAmount:"
                     android:layout_weight="1"
                     android:layout_below="@id/textViewownerstatic"
                     android:layout_width="0dp"
@@ -314,6 +318,7 @@
 
                 <TextView android:id="@+id/TotalTaxDetails"
                     android:text="Owner"
+                    android:layout_gravity="center"
                     android:textStyle="bold"
                     android:fontFamily="sans-serif"
                     android:layout_weight="1"
@@ -334,6 +339,8 @@
                 android:paddingTop="10dp">
 
                 <CheckBox
+                    android:textStyle="bold"
+                    android:fontFamily="serif"
                     android:id="@+id/checkBoxFullPayment"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -341,6 +348,8 @@
                     android:text="Full Payment" />
 
                 <CheckBox
+                    android:textStyle="bold"
+                    android:fontFamily="serif"
                     android:id="@+id/checkBoxPartialPayment"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -359,7 +368,7 @@
 
 
                 <TextView android:id="@+id/edittextstatic"
-                    android:text="Payment.:"
+                    android:text="Payment Made:"
                     android:layout_weight="1"
                     android:layout_below="@id/textViewownerstatic"
                     android:layout_width="0dp"
@@ -367,7 +376,9 @@
                     android:layout_height="wrap_content"/>
 
                 <EditText
-                    android:hint="Enter value in decimal only(0.0)"
+                    android:fontFamily="sans-serif-condensed"
+                    android:padding="7dp"
+                    android:hint="Only in (0.0)"
                     android:inputType="numberDecimal"
                     android:id="@+id/editTextPaymentAmount"
                     android:backgroundTint="@android:color/darker_gray"
@@ -394,6 +405,8 @@
 
 
     </androidx.cardview.widget.CardView>
+
+</androidx.core.widget.NestedScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_marginBottom="10dp"

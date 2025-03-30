@@ -29,7 +29,9 @@ android {
 }
 
 dependencies {
-    implementation ("com.guolindev.permissionx:permissionx:1.7.1")
+    implementation(libs.checkout)
+    implementation 'androidx.viewpager2:viewpager2:1.1.0'
+    implementation (libs.permissionx)
     implementation libs.circleimageview
     implementation libs.volley
     implementation libs.appcompat

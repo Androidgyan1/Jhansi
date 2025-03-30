@@ -91,22 +91,22 @@ public class PrintReceptScreen extends AppCompatActivity {
 
 
 
-            clientid.setText(clientId);
-            TxnMsg.setText(TXNMSg);
-            TxnTime.setText(TXNTIME);
-            rrn.setText(RRN);
-            Name.setText(NAME);
-            FName.setText(FNAME);
-            EmailID.setText(EMAIL);
-            Mobile.setText(MOBILE);
-            ReceivedBy.setText(RECEVED);
-            JalkalId.setText(JALKALID);
-            Zone_Name.setText(ZONENAME);
-            Ward_Name.setText(WARDNAME);
-            Mohlla_Name.setText(MOHALLANAME);
-            AmountRecived.setText(AMOUNTRECEVIED);
-            Paymentmode.setText(PAYMENTMODE);
-            TotalTax.setText(TOTALTAX);
+        clientid.setText(clientId);
+        TxnMsg.setText(TXNMSg);
+        TxnTime.setText(TXNTIME);
+        rrn.setText(RRN);
+        Name.setText(NAME);
+        FName.setText(FNAME);
+        EmailID.setText(EMAIL);
+        Mobile.setText(MOBILE);
+        ReceivedBy.setText(RECEVED);
+        JalkalId.setText(JALKALID);
+        Zone_Name.setText(ZONENAME);
+        Ward_Name.setText(WARDNAME);
+        Mohlla_Name.setText(MOHALLANAME);
+        AmountRecived.setText(AMOUNTRECEVIED);
+        Paymentmode.setText(PAYMENTMODE);
+        TotalTax.setText(TOTALTAX);
 
 
 

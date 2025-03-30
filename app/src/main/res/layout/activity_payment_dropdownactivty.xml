@@ -97,7 +97,7 @@
                 android:orientation="horizontal">
 
                 <TextView android:id="@+id/paymenttypestatic"
-                    android:text="Payment Type:"
+                    android:text="Payment Mode:"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:textSize="18sp"
@@ -127,7 +127,7 @@
                 android:orientation="horizontal">
 
                 <TextView android:id="@+id/textViewownerstatic"
-                    android:text="current_water_tax:"
+                    android:text="Current Water Tax:"
                     android:layout_weight="1"
                     android:layout_below="@id/textViewJalstatic"
                     android:layout_width="0dp"
@@ -153,7 +153,7 @@
                 android:orientation="horizontal">
 
                 <TextView android:id="@+id/textViewownerhousenamestatic"
-                    android:text="water_arrer:"
+                    android:text="Water Arrer:"
                     android:layout_weight="1"
                     android:layout_below="@id/textViewownerstatic"
                     android:layout_width="0dp"
@@ -180,7 +180,7 @@
                 android:orientation="horizontal">
 
                 <TextView android:id="@+id/textViewownermobilestatic"
-                    android:text="current_server_tax:"
+                    android:text="Current Server Tax:"
                     android:layout_weight="1"
                     android:layout_below="@id/textViewownerstatic"
                     android:layout_width="0dp"
@@ -206,7 +206,7 @@
                 android:orientation="horizontal">
 
                 <TextView android:id="@+id/textViewownerbilldatestatic"
-                    android:text="sewer_arrear:"
+                    android:text="Sewer Arrear:"
                     android:layout_weight="1"
                     android:layout_below="@id/textViewownerstatic"
                     android:layout_width="0dp"
@@ -233,7 +233,7 @@
                 android:orientation="horizontal">
 
                 <TextView android:id="@+id/isEligibleForDiscountstatic"
-                    android:text="Arrer_surcharge:"
+                    android:text="Arrer Surcharge:"
                     android:layout_weight="1"
                     android:layout_below="@id/textViewownerstatic"
                     android:layout_width="0dp"
@@ -259,7 +259,7 @@
                 android:orientation="horizontal">
 
                 <TextView android:id="@+id/discount_amountstatic"
-                    android:text="Bill_date:"
+                    android:text="Bill Date:"
                     android:layout_weight="1"
                     android:layout_below="@id/textViewownerstatic"
                     android:layout_width="0dp"
@@ -285,7 +285,7 @@
                 android:orientation="horizontal">
 
                 <TextView android:id="@+id/CurrentSurchargestatic"
-                    android:text="Discount_amount:"
+                    android:text="Discount Amount:"
                     android:layout_weight="1"
                     android:layout_below="@id/textViewownerstatic"
                     android:layout_width="0dp"
@@ -312,7 +312,7 @@
                 android:orientation="horizontal">
 
                 <TextView android:id="@+id/AmountRecivedCurrentFYstatic"
-                    android:text="Current_surcharge:"
+                    android:text="Current Surcharge:"
                     android:layout_weight="1"
                     android:layout_below="@id/textViewownerstatic"
                     android:layout_width="0dp"
@@ -339,7 +339,7 @@
                 android:orientation="horizontal">
 
                 <TextView android:id="@+id/TotalTaxstatic"
-                    android:text="Total_Payable\nAmount:"
+                    android:text="Total Payable\nAmount:"
                     android:layout_weight="1"
                     android:layout_below="@id/textViewownerstatic"
                     android:layout_width="0dp"
@@ -349,6 +349,7 @@
 
                 <TextView android:id="@+id/total_payable_amountpaymentactivity"
                     android:text="Owner"
+                    android:layout_gravity="center"
                     android:textStyle="bold"
                     android:fontFamily="sans-serif"
                     android:layout_weight="1"
@@ -366,7 +367,7 @@
                 android:orientation="horizontal">
 
                 <TextView android:id="@+id/TotalTaxstaticpayment"
-                    android:text="AmountToPay:"
+                    android:text="Amount Paid:"
                     android:layout_weight="1"
                     android:layout_below="@id/textViewownerstatic"
                     android:layout_width="0dp"
@@ -483,7 +484,7 @@
                 android:background="@drawable/edittext_bacground"/>
 
             <Spinner
-
+                android:visibility="gone"
                 android:layout_marginTop="10dp"
                 android:id="@+id/spinnerBankName"
                 android:layout_width="match_parent"
@@ -528,18 +529,36 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <LinearLayout
         android:layout_marginBottom="10dp"
-        android:onClick="payout"
-        android:layout_margin="12dp"
-        android:id="@+id/buttonProceed"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:textColor="@android:color/white"
-        android:background="@drawable/edit_text_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Proceed"
-        android:layout_marginTop="10dp" />
+        android:orientation="horizontal">
 
+    <TextView android:id="@+id/Amountpaidtext"
+        android:text="Owner"
+        android:layout_marginLeft="4dp"
+        android:textStyle="bold"
+        android:layout_gravity="center_vertical"
+        android:textColor="@android:color/white"
+        android:fontFamily="sans-serif"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:textSize="18sp"
+        android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:onClick="payout"
+            android:id="@+id/buttonProceed"
+            android:textColor="@android:color/white"
+            android:background="@drawable/edit_text_background"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Pay now" />
+
+
+    </LinearLayout>
 </RelativeLayout>

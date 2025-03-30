@@ -114,11 +114,12 @@ public class MainActivity extends AppCompatActivity {
                                 String opername = obj.getString("Opername");
                                 String userId = obj.getString("Userid");// Modify based on your API response
                                 // Move to NextActivity with Token
-                                Intent intent = new Intent(MainActivity.this, HomePage.class);
+                                Intent intent = new Intent(MainActivity.this, DashBord.class);
                                 intent.putExtra("TOKEN", token);
                                 intent.putExtra("ZONE", Zone); // Assuming username is mobile number
                                 startActivity(intent);
                                 progressBar.setVisibility(View.GONE);
+                                finish();
 
                                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -142,6 +143,13 @@ public class MainActivity extends AppCompatActivity {
 // Save the token valu
                                 UserIdeditor.putString("userId", userId);
                                 UserIdeditor.apply(); // Don't forget to apply changes!
+
+                                SharedPreferences ZoneID = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                                SharedPreferences.Editor ZoneEditor = ZoneID.edit();
+
+// Save the token valu
+                                ZoneEditor.putString("ZONE", Zone);
+                                ZoneEditor.apply(); // Don't forget to apply changes!
 
 
                             }

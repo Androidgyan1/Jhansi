@@ -2,7 +2,9 @@ package com.jhansi;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -46,7 +48,7 @@ public class HomePage extends AppCompatActivity {
     private ArrayList<SearchModel> dataList;
     private TextView textViewMobileZone;
 
-    private String token, mobileNumberZone,usersearch;
+    private String Token, ZoneIDString,usersearch;
 
     private String URL = "https://jklmc.gov.in/LKOPOSAPI/LKOPOSAPI/api/GetDetail";
 
@@ -70,12 +72,14 @@ public class HomePage extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progress);
 
-        // Retrieve Token & Mobile Number from Intent
-        token = getIntent().getStringExtra("TOKEN");
-        mobileNumberZone = getIntent().getStringExtra("ZONE");
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        Token = sharedPreferences.getString("TKOEN", "N/A");
+
+        SharedPreferences ZoneID = PreferenceManager.getDefaultSharedPreferences(this);
+        ZoneIDString = ZoneID.getString("ZONE", "N/A");
 
         // Set Mobile Number to TextView
-        textViewMobileZone.setText("Zone ID: " + mobileNumberZone);
+        textViewMobileZone.setText("Zone ID: " + ZoneIDString);
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,9 +100,9 @@ public class HomePage extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         JSONObject requestBody = new JSONObject();
         try {
-            requestBody.put("Token", token);
+            requestBody.put("Token", Token);
             requestBody.put("search_text", mobileNumber);
-            requestBody.put("ZoneNo", mobileNumberZone);
+            requestBody.put("ZoneNo", ZoneIDString);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -143,10 +147,11 @@ public class HomePage extends AppCompatActivity {
                             intent.putExtra("DATA_LIST", dataList);
                             startActivity(intent);
                             progressBar.setVisibility(View.GONE);
+                            finish();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(HomePage.this, "JSON Parsing Error", Toast.LENGTH_LONG).show();
+                            Toast.makeText(HomePage.this, e.getMessage().toString(), Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }
@@ -173,7 +178,7 @@ public class HomePage extends AppCompatActivity {
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json");
-                headers.put("Authorization", "Bearer " + token); // If API requires Authorization Header
+                headers.put("Authorization", "Bearer " + Token); // If API requires Authorization Header
                 return headers;
             }
         };

@@ -246,6 +246,7 @@
 
             <TextView android:id="@+id/AmountRecivedCurrentFY"
                 android:text="Owner"
+                android:layout_gravity="center"
                 android:textStyle="bold"
                 android:fontFamily="sans-serif"
                 android:layout_weight="1"
@@ -262,7 +263,7 @@
             android:orientation="horizontal">
 
             <TextView android:id="@+id/TotalTaxstatic"
-                android:text="TotalTax:"
+                android:text="Total Paybale\nAmount:"
                 android:layout_weight="1"
                 android:layout_below="@id/textViewownerstatic"
                 android:layout_width="0dp"
@@ -271,6 +272,34 @@
 
 
             <TextView android:id="@+id/TotalTax"
+                android:layout_gravity="center"
+                android:text="Owner"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:layout_weight="1"
+                android:layout_below="@id/textViewowner"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/dueblancestatic"
+                android:text="Due Balance:"
+                android:layout_weight="1"
+                android:layout_below="@id/textViewownerstatic"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView android:id="@+id/dueblance"
+                android:layout_gravity="center"
                 android:text="Owner"
                 android:textStyle="bold"
                 android:fontFamily="sans-serif"
@@ -283,10 +312,76 @@
         </LinearLayout>
 
 
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
+
+            <CheckBox
+                android:textStyle="bold"
+                android:fontFamily="serif"
+                android:id="@+id/checkBoxFullPayment"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Full Payment" />
+
+            <CheckBox
+                android:textStyle="bold"
+                android:fontFamily="serif"
+                android:id="@+id/checkBoxPartialPayment"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Partial Payment" />
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
+
+
+            <TextView android:id="@+id/edittextstatic"
+                android:text="Payment Made:"
+                android:layout_weight="1"
+                android:layout_below="@id/textViewownerstatic"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:fontFamily="sans-serif-condensed"
+                android:padding="7dp"
+                android:hint="Only in (0.0)"
+                android:inputType="numberDecimal"
+                android:id="@+id/editTextPaymentAmount"
+                android:backgroundTint="@android:color/darker_gray"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"></EditText>
+
+
+
+        </LinearLayout>
+
+
+
+
         <!-- Payment Options -->
         <!-- Proceed Button -->
         <androidx.appcompat.widget.AppCompatButton
+            android:elevation="10dp"
             android:id="@+id/buttonProceed"
+            android:layout_marginBottom="10dp"
             android:textColor="@android:color/white"
             android:background="@drawable/edit_text_background"
             android:layout_width="match_parent"

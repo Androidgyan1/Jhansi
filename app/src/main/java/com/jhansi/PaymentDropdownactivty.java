@@ -6,21 +6,29 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -35,6 +43,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,12 +59,12 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class PaymentDropdownactivty extends AppCompatActivity {
+public class PaymentDropdownactivty extends AppCompatActivity implements PaymentResultListener {
 
     TextView paymentpagecurrenttax,current_water_taxpaymentactivity,water_arrerpaymentactivity,current_server_taxpaymentactivity,
             sewer_arrearpaymentactivity,Arrer_surchargepaymentactivity,bill_datepaymentactivity,discount_amountpaymentactivity,
             current_surchargepaymentactivity,total_payable_amountpaymentactivity,AmountToPaypaymentactivity,OTSDiscountamtpaymentactivity,
-            AdvanceAmtpaymentactivity,paymenttype;
+            AdvanceAmtpaymentactivity,paymenttype,Amountpaidtext;
 
     ArrayList<String> bankNames = new ArrayList<>();
     HashMap<String, String> bankMap = new HashMap<>();
@@ -62,7 +72,7 @@ public class PaymentDropdownactivty extends AppCompatActivity {
 
 
     String Token,paymentTypeString,receivedText,total_payable_amount,AmountToPay,bill_date,AdvanceAmt,BankCode,Opernameeditor
-            ,userIdeditor;
+            ,userIdeditor,amountToPay;
 
     FusedLocationProviderClient fusedLocationProviderClient;
 
@@ -86,7 +96,10 @@ public class PaymentDropdownactivty extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+// Initialize Razorpay
+
 /////// insilization ID
+        editTextBankName = findViewById(R.id.editTextSearch);
         paymentpagecurrenttax = findViewById(R.id.paymentpagecurrenttax);
         current_water_taxpaymentactivity = findViewById(R.id.current_water_taxpaymentactivity);
         water_arrerpaymentactivity = findViewById(R.id.water_arrerpaymentactivity);
@@ -102,7 +115,7 @@ public class PaymentDropdownactivty extends AppCompatActivity {
         OTSDiscountamtpaymentactivity = findViewById(R.id.OTSDiscountamtpaymentactivity);
         AdvanceAmtpaymentactivity = findViewById(R.id.AdvanceAmtpaymentactivity);
         paymenttype = findViewById(R.id.paymenttype);
-
+        Amountpaidtext = findViewById(R.id.Amountpaidtext);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         Token = sharedPreferences.getString("TKOEN", "N/A");
@@ -113,6 +126,15 @@ public class PaymentDropdownactivty extends AppCompatActivity {
 
         SharedPreferences UesrID = PreferenceManager.getDefaultSharedPreferences(this);
         userIdeditor = UesrID.getString("userId", "N/A");
+
+
+        ImageView btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // Moves to the previous screen
+            }
+        });
 
 
 
@@ -140,6 +162,8 @@ public class PaymentDropdownactivty extends AppCompatActivity {
                     editTextChequeDate.setVisibility(View.VISIBLE);
                     editTextBankNameBranch.setVisibility(View.VISIBLE);
                     fetchBankList();
+                } else if (selectedPaymentMethod.equalsIgnoreCase("Online Payment")) {
+
                 } else {
                     editTextChequeNumber.setVisibility(View.GONE);
                     spinnerBankName.setVisibility(View.GONE);
@@ -153,17 +177,19 @@ public class PaymentDropdownactivty extends AppCompatActivity {
             }
         });
 
-        spinnerBankName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
+
+        // Handle Spinner Click
+        spinnerBankName.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedBank = parent.getItemAtPosition(position).toString();
-                selectedBankCode = bankMap.get(selectedBank);
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    showSearchableBankDialog();
+                }
+                return true; // Prevents default Spinner behavior
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
         });
-
 
 
         /////  editTextChequeNumber limit to 6 digit only
@@ -201,11 +227,11 @@ public class PaymentDropdownactivty extends AppCompatActivity {
         String discount_amount = getIntent().getStringExtra("discount_amount");
         String current_surcharge = getIntent().getStringExtra("current_surcharge");
         total_payable_amount = getIntent().getStringExtra("total_payable_amount");
-         AmountToPay = getIntent().getStringExtra("AmountToPay");
+        AmountToPay = getIntent().getStringExtra("AmountToPay");
         String OTSDiscountamt = getIntent().getStringExtra("OTSDiscountamt");
         AdvanceAmt = getIntent().getStringExtra("AdvanceAmt");
         paymentTypeString = getIntent().getStringExtra("paymentType");
-       // int userId = getIntent().getIntExtra("USER_ID", 0); // Default value is 0 if not found
+        // int userId = getIntent().getIntExtra("USER_ID", 0); // Default value is 0 if not found
 
         // Display the received data
         paymentpagecurrenttax.setText(receivedText.toString());
@@ -220,6 +246,7 @@ public class PaymentDropdownactivty extends AppCompatActivity {
         total_payable_amountpaymentactivity.setText(total_payable_amount);
         AmountToPaypaymentactivity.setText(AmountToPay);
         OTSDiscountamtpaymentactivity.setText(OTSDiscountamt);
+        Amountpaidtext.setText("  Amount to Pay ₹" + AmountToPay);
         AdvanceAmtpaymentactivity.setText(AdvanceAmt);
         if (paymentTypeString != null) {
             paymenttype.setText(paymentTypeString);
@@ -227,6 +254,46 @@ public class PaymentDropdownactivty extends AppCompatActivity {
 
     }
 
+    private void showSearchableBankDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select Bank");
+
+        View view = getLayoutInflater().inflate(R.layout.custom_dialogbox, null);
+        EditText editTextSearch = view.findViewById(R.id.editTextSearch);
+        ListView listViewBanks = view.findViewById(R.id.listViewBanks);
+
+        // Create List Adapter
+        ArrayAdapter<String> dialogAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, bankNames);
+        listViewBanks.setAdapter(dialogAdapter);
+
+        // Filter the list when typing
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                dialogAdapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        // Handle List Item Click
+        listViewBanks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedBankCode = dialogAdapter.getItem(position);
+                spinnerBankName.setSelection(bankNames.indexOf(selectedBankCode)); // Update Spinner
+                dialog.dismiss();
+            }
+        });
+    }
 
 
     private void getCurrentLocationservices() {
@@ -277,15 +344,19 @@ public class PaymentDropdownactivty extends AppCompatActivity {
             }
         }
     }
-////// Button method
+    ////// Button method
     public void payout(View view) {
         String selectedPaymentMethod = spinnerPaymentMethod.getSelectedItem().toString();
-
-        // Get values from EditTexts
         String chequeNumber = editTextChequeNumber.getText().toString().trim();
-        String bankName = spinnerBankName.getSelectedItem().toString();
-        String bankBranch = editTextBankNameBranch.getText().toString().trim();
-        String chequeDate = editTextChequeDate.getText().toString().trim();
+        String bankName = ""; // Initialize bankName
+        String bankBranch = ""; // Initialize bankBranch
+        String chequeDate = ""; // Initialize chequeDate
+        // Prepare data for receipt page
+        // Get values from EditTexts
+        chequeNumber = editTextChequeNumber.getText().toString().trim();
+        bankName = spinnerBankName.getSelectedItem().toString().trim();
+        bankBranch = editTextBankNameBranch.getText().toString().trim();
+        chequeDate = editTextChequeDate.getText().toString().trim();
 
         // If payment method is Cash, send "NA" for cheque details
         if (selectedPaymentMethod.equalsIgnoreCase("cash")) {
@@ -293,7 +364,35 @@ public class PaymentDropdownactivty extends AppCompatActivity {
             bankName = "NA";
             bankBranch = "NA";
             chequeDate = "NA";
-        } else {
+        } else if (selectedPaymentMethod.equalsIgnoreCase("Online Payment")) {
+            Intent intent = new Intent(PaymentDropdownactivty.this, PaymentGateway.class);
+            intent.putExtra("clientId", receivedText);
+            intent.putExtra("paymentType", paymentTypeString);
+            intent.putExtra("total_payable_amount", total_payable_amount);
+            intent.putExtra("AmountToPay", AmountToPay);
+            intent.putExtra("userId", userIdeditor);
+            intent.putExtra("Opername", Opernameeditor);
+            intent.putExtra("latitude", latitude);
+            intent.putExtra("longitude", longitude);
+            intent.putExtra("Token", Token);
+            intent.putExtra("AdvanceAmt", AdvanceAmt);
+            // Start PaymentGateway activity for result
+            startActivityForResult(intent, 1); // Use requestCode 1
+            return; // Exit the method to avoid further processing
+           // startRazorpayPayment();
+           // return; // Exit the method to avoid further processing
+
+        }else {
+
+            // For Cheque payment, get values from the spinner and EditText fields
+            if (spinnerBankName.getSelectedItem() != null) {
+                bankName = spinnerBankName.getSelectedItem().toString();
+            } else {
+                bankName = "NA"; // Default value if spinner is empty
+            }
+            bankBranch = editTextBankNameBranch.getText().toString().trim();
+            chequeDate = editTextChequeDate.getText().toString().trim();
+
             // Validation for Cheque Details
             if (chequeNumber.length() < 6) {
                 editTextChequeNumber.setError("Enter a valid 6-digit cheque number");
@@ -330,14 +429,12 @@ public class PaymentDropdownactivty extends AppCompatActivity {
             paymentData.put("TrxnStatus", paymentTypeString);
             paymentData.put("txn_error", "success");
             paymentData.put("client_txn_ref_no", receivedText); // Removes only backslashes
-            if (selectedPaymentMethod.equalsIgnoreCase("cash")) {
+            if (selectedPaymentMethod.equalsIgnoreCase("cash")||selectedPaymentMethod.equalsIgnoreCase("Online Payment")) {
                 paymentData.put("bank_code", "999");  // Send bankcode as 999
             } else {
                 paymentData.put("bank_code", BankCode);  // Optional: Send empty or actual bank code
             }
-
-
-            paymentData.put("TrxnId", receivedText.replace("\\/","/")); // Removes only backslashes
+            paymentData.put("TrxnId", receivedText); // Removes only backslashes
             paymentData.put("total_amount", total_payable_amount);
             paymentData.put("payment_amount", AmountToPay);
             paymentData.put("TrxnTime", currentDateTime);
@@ -348,6 +445,12 @@ public class PaymentDropdownactivty extends AppCompatActivity {
             paymentData.put("longitude", longitude);
             paymentData.put("tid", "7617864718");
             paymentData.put("payment_mode", selectedPaymentMethod);
+            if (selectedPaymentMethod.equalsIgnoreCase("Online Payment")) {
+                paymentData.put("payment_mode", "Online Payment");  // Send bankcode as 999
+            } else {
+                paymentData.put("payment_mode", selectedPaymentMethod);  // Optional: Send empty or actual bank code
+            }
+
             paymentData.put("Token", Token);
             paymentData.put("chequeNO", chequeNumber);
             paymentData.put("BankName", bankName);
@@ -373,7 +476,6 @@ public class PaymentDropdownactivty extends AppCompatActivity {
                                 String payment_amount_receptPage = obj.getString("payment_amount");
                                 String payment_time_receptPage = obj.getString("payment_time");
                                 String BalanceAmount_receptPage = obj.getString("BalanceAmount");
-                                Toast.makeText(PaymentDropdownactivty.this,ClientID,Toast.LENGTH_LONG).show();
 
                                 Intent intent = new Intent(PaymentDropdownactivty.this, RecieptPage.class);
                                 intent.putExtra("client_ref_no", ClientID);
@@ -381,8 +483,12 @@ public class PaymentDropdownactivty extends AppCompatActivity {
                                 intent.putExtra("payment_time", payment_time_receptPage);
                                 intent.putExtra("BalanceAmount", BalanceAmount_receptPage);
                                 startActivity(intent);
-
-
+                                // Don't forget to apply changes!
+                                SharedPreferences sharedPreferencesclient = PreferenceManager.getDefaultSharedPreferences(PaymentDropdownactivty.this);
+                                SharedPreferences.Editor editorcleient = sharedPreferencesclient.edit();
+                                editorcleient.putString("client_ref_no", ClientID);
+                                editorcleient.apply();
+                                Log.d("ref",ClientID);
                                 //String Zone = obj.getString("zone");// Modify based on your API response
                                 // Move to NextActivity with Token
 //                                Intent intent = new Intent(PaymentDropdownactivty.this, HomePage.class);
@@ -458,7 +564,7 @@ public class PaymentDropdownactivty extends AppCompatActivity {
                             // Loop through the JSON Array
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject obj = response.getJSONObject(i);
-                                 BankCode = obj.getString("BankCode");
+                                BankCode = obj.getString("BankCode");
                                 String BankName = obj.getString("BankName");// Modify based on your API response
 
                                 bankNames.add(BankName);
@@ -507,4 +613,81 @@ public class PaymentDropdownactivty extends AppCompatActivity {
 
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                String paymentMethod = data.getStringExtra("payment_method");
+                if (paymentMethod != null && paymentMethod.equals("Online Payment")) {
+                    // Update the payment method to "Online Payment"
+                    spinnerPaymentMethod.setSelection(getIndex(spinnerPaymentMethod, "Online Payment"));
+                    // You can also update other UI elements or proceed with further actions
+                }
+            } else if (resultCode == RESULT_CANCELED) {
+              //  Toast.makeText(this, "Payment was cancelled", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
+
+    // Helper method to get the index of an item in the spinner
+    private int getIndex(Spinner spinner, String myString) {
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    private void startRazorpayPayment() {
+        Checkout checkout = new Checkout();
+        checkout.setKeyID("rzp_test_itLjGcNUvNy5FE"); // Replace with your actual Razorpay Key ID
+
+        try {
+            // Ensure amountToPay is not null
+            if (amountToPay == null || amountToPay.trim().isEmpty()) {
+                Toast.makeText(this,amountToPay, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            double amount = Double.parseDouble(amountToPay);
+            int amountInPaise = (int) (amount * 100);
+
+            JSONObject options = new JSONObject();
+            options.put("name", "Jhansi");
+            options.put("description", "Payment for Services");
+            options.put("currency", "INR");
+            options.put("amount", amount); // Amount in paise
+            options.put("prefill.email", "customer@example.com");
+            options.put("prefill.contact", "8299722943");
+
+            checkout.open(this, options);
+        } catch (Exception e) {
+            Toast.makeText(this, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.e("payment", e.getMessage());
+        }
+
+    }
+
+
+
+
+
+    @Override
+    public void onPaymentSuccess(String s) {
+
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();  // Default behavior (closes activity)
+    }
+
+}
